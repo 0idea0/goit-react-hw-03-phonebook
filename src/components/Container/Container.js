@@ -12,12 +12,13 @@ const Container = ({ title, children }) => (
 
 Container.defaultProps = {
   title: '',
-  children: [],
 };
 
 Container.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
-
 export default Container;

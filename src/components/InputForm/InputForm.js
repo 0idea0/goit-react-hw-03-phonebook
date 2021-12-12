@@ -46,6 +46,7 @@ class InputForm extends Component {
           name="name"
           value={name}
           placeholder="Name"
+          autoComplete="off"
         />
 
         <label className={s.label} htmlFor="number">
@@ -62,6 +63,7 @@ class InputForm extends Component {
           name="number"
           value={number}
           placeholder="Phone number"
+          autoComplete="off"
         />
         <button type="submit" className={s.btn}>
           Add contact
