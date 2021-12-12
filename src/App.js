@@ -14,6 +14,23 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, { contacts }) {
+    const newContacts = this.state.contacts;
+
+    if (newContacts !== contacts) {
+      localStorage.setItem('contacts', JSON.stringify(newContacts));
+    }
+  }
+
   addContact = ({ name, number }) => {
     const contact = {
       id: shortid.generate(),
@@ -43,8 +60,16 @@ class App extends Component {
   };
 
   changeFilter = event => {
-    const { value } = event.currentTarget;
-    this.setState({ filter: value });
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getFilteredContacts = () => {
+    const { filter, contacts } = this.state;
+    const lowerCaseFilter = filter.toLowerCase();
+
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(lowerCaseFilter),
+    );
   };
 
   getFilteredContacts = () => {
